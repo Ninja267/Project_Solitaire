@@ -1,5 +1,6 @@
 package com.klondike;
 //Créer une classe pour les cartes de poker
+
 //Chaque carte a une valeur et une couleur
 //Les valeurs sont de 1 à 14 (11=Valet, 12=Dame, 13=Roi, 14=As)
 //Les couleurs sont : coeur, carreau, trèfle, pique
@@ -12,27 +13,38 @@ public class Carte implements ICarte {
     private String couleur;
 
     public Carte(int valeur, String couleur) {
-        //vérifier le valeur pour interdire les valeurs non valides (1 à 14)
+        // vérifier le valeur pour interdire les valeurs non valides (1 à 14)
         if (valeur < 0 || valeur > 14) {
             throw new IllegalArgumentException("La valeur doit être entre 0 et 14");
         } else {
             this.valeur = valeur;
         }
 
-        //vérifier la couleur pour interdire les couleurs non valides (coeur, carreau, trèfle, pique)
-        if (couleur.equals("coeur") || couleur.equals("carreau") || couleur.equals("trèfle") || couleur.equals("pique")) {
+        // vérifier la couleur pour interdire les couleurs non valides (coeur, carreau,
+        // trefle, pique)
+        if (couleur.equals("coeur") || couleur.equals("carreau") || couleur.equals("trefle")
+                || couleur.equals("pique")) {
             this.couleur = couleur;
         } else {
-            throw new IllegalArgumentException("La couleur doit être coeur, carreau, trèfle ou pique");
+            throw new IllegalArgumentException("La couleur doit être coeur, carreau, trefle ou pique");
         }
     }
-    
+
     @Override
     public String getNomDeFichierPNG() {
         if (this.valeur == 0) {
-            return "dos_carte.png";
+            return "dos.png";
+        } else if (this.valeur == 1) {
+            return "as_de_" + this.couleur + ".png";
+        } else if (this.valeur == 14) {
+            return "roi_de_" + this.couleur + ".png";
+        } else if (this.valeur == 13) {
+            return "dame_de_" + this.couleur + ".png";
+        } else if (this.valeur == 12) {
+            return "valet_de_" + this.couleur + ".png";
+        } else {
+            return this.valeur + "_de_" + this.couleur + ".png";
         }
-        return this.valeur + "_de_" + this.couleur + ".png";
     }
 
     public int getValeur() {
@@ -55,7 +67,7 @@ public class Carte implements ICarte {
             case 13:
                 valeur = "Roi";
                 break;
-            case 14:
+            case 1:
                 valeur = "As";
                 break;
             default:
@@ -64,8 +76,9 @@ public class Carte implements ICarte {
         }
         return valeur + " de " + this.couleur;
     }
-    
-    //methode precedeMemeCouleut, prend en paramètre un objet Carte et retourne true si la carte .this est bien la suivante de la carte passée en paramètre
+
+    // methode precedeMemeCouleut, prend en paramètre un objet Carte et retourne
+    // true si la carte .this est bien la suivante de la carte passée en paramètre
     public boolean precedeMemeCouleur(Carte autre) {
         if (this.valeur == autre.valeur - 1 && this.couleur.equals(autre.couleur)) {
             return true;
@@ -84,4 +97,3 @@ public class Carte implements ICarte {
         }
     }
 }
-

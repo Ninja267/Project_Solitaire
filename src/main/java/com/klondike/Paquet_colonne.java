@@ -7,18 +7,22 @@ public class Paquet_colonne extends Paquet_mere {
     //La carte pour ajouter est random et qui est retirée du paquet distributeur
     public Paquet_colonne(Paquet_distributeur distributeur, int nombreDeCartes) {
         for (int i = 0; i < nombreDeCartes; i++) {
-            ajouterCarte(distributeur.retirerCarte());
+            ajouterCarteInit(distributeur.retirerCarte());
         }
     }
 
-    public void ajouterCarte(Carte carte) {
+    public void ajouterCarteInit(Carte carte) {
+        super.ajouterCarte(carte);
+    }
+
+    public void ajouterCarteJouer(Carte carte) {
         if (paquet.isEmpty()) {
-            if (carte.getValeur() == 14) {
+            if (carte.getValeur() == 13) {
                 super.ajouterCarte(carte);
             }
         } else {
             Carte carteSommet = paquet.get(paquet.size() - 1);
-            if (carte.getValeur() == 2 && carteSommet.getValeur() == 14) {
+            if (carte.getValeur() == 1 && carteSommet.getValeur() == 13) {
                 super.ajouterCarte(carte);
             } else if (carte.getValeur() == carteSommet.getValeur() - 1
                     && !carte.getCouleur().equals(carteSommet.getCouleur())) {

@@ -18,7 +18,7 @@ package interfaceGraphique;
  * Initialement, la fenêtre graphique ne comporte pas de boutons. Ceux-ci
  * peuvent être ajoutés au moyen de la méthode addButton.
  * 
- */
+ */ 
 
 public class InterfaceKlondike{
 	
@@ -44,21 +44,37 @@ public class InterfaceKlondike{
 	 * appuis de boutons dans la fenêtre.
 	 */
 	public InterfaceKlondike(ClickReporter reporter) {
+		
+		//Création des tas de cartes
 		EnsembleCarte composant;
+
+		//Création de l'interface graphique d'une carte 
 		ic = new InterfaceCarte(reporter);
+
+		//Création d'identifiants pour les tas
 		String[] idents = {" ","0","   ","A","B","C","D"};
+
+		//Création des tas de cartes de tas 0 à tas 7 (pioche, défausse, 4 pieux et la première colonnes)
+		//tank from 0 to 6 are the object UneCarte
 		for (int i=0; i<7; i++) {
+			//la pioche et la défausse a l'index 0 et 1
 			if (i<3) {
 				composant = new UneCarte(idents[i],i,reporter,ic);
 				tank[i]=composant;
 				ic.addComponent(composant);
-			}else {
+			} else {
+				//les restes tas ont l'index 2 à 6
 				composant = new UneCarte(idents[i],i-1,reporter,ic);
 				ic.addComponent(composant);
 				tank[i-1]=composant;
 			}
 		}
+
+		//Création des colonnes
+		//tank from 6 to 12 are the object UneColonne
 		char car = '1';
+
+		//Création des colonnes par une boucle de 6 à 12
 		for (int i=6; i<13; i++, car++) {
 			composant=new UneColonne(""+car,i,reporter,ic);
 			ic.addComponent(composant);
@@ -80,7 +96,6 @@ public class InterfaceKlondike{
 	 * @param comp  l'indice du tas auquel ajouter la carte.
 	 */
 	public void addCard(ICarte carte, int comp) {
-		//System.out.println(carte+" "+icarteToString(carte));
 		tank[comp].add(carte);
 		//tank[comp].repaint();
 	}
@@ -122,6 +137,16 @@ public class InterfaceKlondike{
 	public void setCards(ICarte[] tab, int comp) {
 		tank[comp].set(tab);			
 	}
+
+	/**
+	 * Récupérer le nombre de cartes dans un tas.
+	 * 
+	 * @param comp indice du tas duquel on veut connaître le nombre de cartes
+	 * @return le nombre de cartes dans le tas
+	 */
+	public int getNbCartes(int comp) {
+		return tank[comp].getNbCartes();
+	}
 	
 	/**
 	 * Vide le tas de numéro comp de toutes ses cartes.
@@ -155,8 +180,12 @@ public class InterfaceKlondike{
 	 * @param comp indice du tas concerné par le surlignage
 	 * @param b booléen définissant si le tas est surligné ou non
 	 */
-	public void setHighlighted(int comp, boolean b) {
-		tank[comp].setHighlighted(b);
+	public void setHighlighted(int comp, int position, boolean b) {
+		tank[comp].setHighlighted(b, position);
+	}
+
+	public boolean isHighlighted(int comp, int position) {
+		return tank[comp].isHighlighted(position);
 	}
 	
 	/**
