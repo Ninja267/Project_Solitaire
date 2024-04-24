@@ -21,7 +21,7 @@ public class App implements ClickReporter {
         interfaceKlondike = new InterfaceKlondike(this);
 
         // ajouter le dos de carte dans la position de paquet pioche
-        Carte dos = new Carte(0, "pique");
+        Carte dos = new Carte(0, "pique", false);
         interfaceKlondike.addCard(dos, 0);
 
         // ajouter les cartes dans les colonnes consécutifs de l'interfaces graphique,
@@ -38,53 +38,55 @@ public class App implements ClickReporter {
 
     @Override
     public void reportClick(int ident, java.awt.event.MouseEvent e) {
-        //System.out.println("click reported: " + ident);
-        //System.out.println("Mouse event Y: " + e.getY());
+        // System.out.println("click reported: " + ident);
+        // System.out.println("Mouse event Y: " + e.getY());
         int numberOfCardsInColumn = interfaceKlondike.getNbCartes(ident);
         int cardClickPosition = handleCardClick(e.getY(), numberOfCardsInColumn);
 
-        //Verifier s'il y a une carte qui est surlignée
+        // Verifier s'il y a une carte qui est surlignée
         for (int i = 2; i <= 12; i++) {
             for (int j = 1; j <= interfaceKlondike.getNbCartes(i); j++) {
                 if (interfaceKlondike.isHighlighted(i, j)) {
                     System.out.println("Card highlighted: " + j + " in column " + i);
-                    //interfaceKlondike.setHighlighted(i, j, false);
-                    //interfaceKlondike.setHighlighted(ident, cardClickPosition, true);
-                } else {
+                    interfaceKlondike.setHighlighted(i, j, false);
                     interfaceKlondike.setHighlighted(ident, cardClickPosition, true);
                 }
+                // else {
+                // interfaceKlondike.setHighlighted(ident, cardClickPosition, true);
+                // }
             }
         }
-
         // Verifier si il y a une colonne qui est surlignée
-       /*  for (int i = 2; i <= 12; i++) {
-            // Si oui, déplacer la carte du colonne surlignée vers la colonne cliquée
-            if (interfaceKlondike.isHighlighted(i) && i != ident) {
-                try {
-                    //move(i, ident);
-                    System.out.println("Card moved from " + i + " to " + ident);
-                    interfaceKlondike.setHighlighted(i, false);
-                    interfaceKlondike.setHighlighted(ident, false);
-                    System.out.println("done");
-                } catch (Exception exception) {
-                    System.out.println("Invalid move");
-                    interfaceKlondike.setHighlighted(ident, true);
-                }
-            } else {
-                interfaceKlondike.setHighlighted(ident, true);
-            }
-        } */
+        /*
+         * for (int i = 2; i <= 12; i++) {
+         * // Si oui, déplacer la carte du colonne surlignée vers la colonne cliquée
+         * if (interfaceKlondike.isHighlighted(i) && i != ident) {
+         * try {
+         * //move(i, ident);
+         * System.out.println("Card moved from " + i + " to " + ident);
+         * interfaceKlondike.setHighlighted(i, false);
+         * interfaceKlondike.setHighlighted(ident, false);
+         * System.out.println("done");
+         * } catch (Exception exception) {
+         * System.out.println("Invalid move");
+         * interfaceKlondike.setHighlighted(ident, true);
+         * }
+         * } else {
+         * interfaceKlondike.setHighlighted(ident, true);
+         * }
+         * }
+         */
     }
 
-     //Methode pour identifier la position du clic
-	private int handleCardClick(int yCoordinate, int numberOfCardsInColumn) {
-		int cardHeightBehind = 25;
-		int cardHeightFace = 120;
+    // Methode pour identifier la position du clic
+    private int handleCardClick(int yCoordinate, int numberOfCardsInColumn) {
+        int cardHeightBehind = 25;
+        int cardHeightFace = 120;
         int clickPosition = -1;
         yCoordinate = yCoordinate - 30;
-        //System.out.println("Y coordinate: " + yCoordinate);
-        //System.out.println("Offset Y coordinate: " + offSetYCoordinate);
-        //System.out.println("number of cards in column: " + numberOfCardsInColumn);
+        // System.out.println("Y coordinate: " + yCoordinate);
+        // System.out.println("Offset Y coordinate: " + offSetYCoordinate);
+        // System.out.println("number of cards in column: " + numberOfCardsInColumn);
 
         if (numberOfCardsInColumn <= 1) {
             if (yCoordinate > 0 && yCoordinate <= cardHeightFace) {
@@ -96,15 +98,16 @@ public class App implements ClickReporter {
         } else {
             if (yCoordinate > 0 && yCoordinate <= (numberOfCardsInColumn - 1) * cardHeightBehind) {
                 System.out.println("Clicked on the hidden card");
-                //condition to find the position of the clicked card
-                for (int j=1; j<=(numberOfCardsInColumn - 1); j++) {
-                    if (yCoordinate < j*cardHeightBehind) {
+                // condition to find the position of the clicked card
+                for (int j = 1; j <= (numberOfCardsInColumn - 1); j++) {
+                    if (yCoordinate < j * cardHeightBehind) {
                         System.out.println("Clicked on the card number " + j);
                         clickPosition = j;
                         break;
                     }
                 }
-            } else if (yCoordinate > (numberOfCardsInColumn - 1) * cardHeightBehind && yCoordinate <= (numberOfCardsInColumn - 1) * cardHeightBehind + cardHeightFace) {
+            } else if (yCoordinate > (numberOfCardsInColumn - 1) * cardHeightBehind
+                    && yCoordinate <= (numberOfCardsInColumn - 1) * cardHeightBehind + cardHeightFace) {
                 System.out.println("Clicked on the card number " + numberOfCardsInColumn);
                 clickPosition = numberOfCardsInColumn;
             } else {
@@ -112,7 +115,7 @@ public class App implements ClickReporter {
             }
         }
         return clickPosition;
-	}
+    }
 
     @Override
     public void buttonPressed(String identifier) {

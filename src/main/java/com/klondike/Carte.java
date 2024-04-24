@@ -11,11 +11,12 @@ import interfaceGraphique.ICarte;
 public class Carte implements ICarte {
     private int valeur;
     private String couleur;
+    private boolean enFace;
 
-    public Carte(int valeur, String couleur) {
+    public Carte(int valeur, String couleur, boolean enFace) {
         // vérifier le valeur pour interdire les valeurs non valides (1 à 14)
-        if (valeur < 0 || valeur > 14) {
-            throw new IllegalArgumentException("La valeur doit être entre 0 et 14");
+        if (valeur < 1 || valeur > 14) {
+            throw new IllegalArgumentException("La valeur doit être entre 1 et 14");
         } else {
             this.valeur = valeur;
         }
@@ -28,11 +29,13 @@ public class Carte implements ICarte {
         } else {
             throw new IllegalArgumentException("La couleur doit être coeur, carreau, trefle ou pique");
         }
+
+        this.enFace = enFace;
     }
 
     @Override
     public String getNomDeFichierPNG() {
-        if (this.valeur == 0) {
+        if (!this.enFace) {
             return "dos.png";
         } else if (this.valeur == 1) {
             return "as_de_" + this.couleur + ".png";
@@ -57,28 +60,31 @@ public class Carte implements ICarte {
 
     public String toString() {
         String valeur = "";
-        switch (this.valeur) {
-            case 11:
-                valeur = "Valet";
-                break;
-            case 12:
-                valeur = "Dame";
-                break;
-            case 13:
-                valeur = "Roi";
-                break;
-            case 1:
-                valeur = "As";
-                break;
-            default:
-                valeur = String.valueOf(this.valeur);
-                break;
+        if (!this.enFace) {
+            valeur = "Dos";
+        } else {
+            switch (this.valeur) {
+                case 11:
+                    valeur = "Valet de " + this.couleur;
+                    break;
+                case 12:
+                    valeur = "Dame de " + this.couleur;
+                    break;
+                case 13:
+                    valeur = "Roi de " + this.couleur;
+                    break;
+                case 1:
+                    valeur = "As de " + this.couleur;
+                    break;
+                default:
+                    valeur = String.valueOf(this.valeur) + " de " + this.couleur;
+                    break;
+            }
         }
-        return valeur + " de " + this.couleur;
+        return valeur;
     }
 
-    // methode precedeMemeCouleut, prend en paramètre un objet Carte et retourne
-    // true si la carte .this est bien la suivante de la carte passée en paramètre
+    // methode precedeMemeCouleut, prend en paramètre un objet Carte et retourne true si la carte .this est bien la suivante de la carte passée en paramètre
     public boolean precedeMemeCouleur(Carte autre) {
         if (this.valeur == autre.valeur - 1 && this.couleur.equals(autre.couleur)) {
             return true;
@@ -87,7 +93,28 @@ public class Carte implements ICarte {
         }
     }
 
-    public int compareTo(Carte autre) {
+    // methode precedeGeneral, prend en paramètre un objet Carte et retourne true si la carte .this est bien la suivante de la carte passée en paramètre
+    public boolean precedeGeneral(Carte autre) {
+        if (this.valeur == autre.valeur - 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // methode compareMemeCouleur, prend en paramètre un objet Carte et retourne 1 si la carte .this est plus grande, -1 si elle est plus petite, 0 si elles sont égales, la comparaison se fait entre les cartes de même couleur
+    public int compareMemeCouleur(Carte autre) {
+        if (this.valeur > autre.valeur && this.couleur.equals(autre.couleur)) {
+            return 1;
+        } else if (this.valeur < autre.valeur && this.couleur.equals(autre.couleur)) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    // methode compareGeneral, prend en paramètre un objet Carte et retourne 1 si la carte .this est plus grande, -1 si elle est plus petite, 0 si elles sont égales, la comparaison se fait entre toutes les cartes
+    public int compareGeneral(Carte autre) {
         if (this.valeur > autre.valeur) {
             return 1;
         } else if (this.valeur < autre.valeur) {
@@ -95,5 +122,15 @@ public class Carte implements ICarte {
         } else {
             return 0;
         }
+    }
+
+    // methode setEnFace, prend en paramètre un boolean et change la valeur de l'attribut enFace, si true la carte est en face sinon elle est cachée
+    public void setEnFace(boolean enFace) {
+        this.enFace = enFace;
+    }
+
+    // methode getEnFace, retourne la valeur de l'attribut enFace
+    public boolean getEnFace() {
+        return this.enFace;
     }
 }

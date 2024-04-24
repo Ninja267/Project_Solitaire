@@ -1,5 +1,6 @@
 package com.klondike;
 //Paquet debut est la classe mère de la hiérarchie des paquets de cartes.
+
 //Comporter un attribut ArrayList de Carte
 //Méthode pour ajouter une carte au sommet du paquet
 //Méthode pour retirer une carte du sommet du paquet
@@ -9,16 +10,22 @@ package com.klondike;
 //ArrayList doit être protégé, encapsulé dans la classe Paquet_debut et jamais divulgué à l'extérieur de la classe
 
 import java.util.ArrayList;
+
 public class Paquet_mere {
     protected ArrayList<Carte> paquet = new ArrayList<Carte>();
 
-    //cette méthode sera redéfinie dans les classes filles
-    public void ajouterCarte(Carte carte) {
+    // cette méthode sera redéfinie dans les classes filles
+    public void ajouterCarte(Carte carte, boolean enFace) {
+        carte.setEnFace(enFace);
         paquet.add(carte);
     }
 
-    public Carte retirerCarte() {
+    public Carte retirerPremiereCarte() {
         return paquet.remove(paquet.size() - 1);
+    }
+
+    public Carte retirerCarte(Carte carte) {
+        return paquet.remove(paquet.indexOf(carte));
     }
 
     public Carte premiereCarte() {
