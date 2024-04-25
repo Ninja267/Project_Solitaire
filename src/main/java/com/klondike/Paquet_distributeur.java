@@ -34,8 +34,14 @@ public class Paquet_distributeur extends Paquet_mere {
         paquet = temp;
     }
 
-    // Méthode pour retirer et renvoyer la carte au sommet du paquet de distribution au paquet defausse
+    // Méthode pour retirer et renvoyer la carte au sommet du paquet de distribution au paquet defausse, quand il n'y a plus de carte dans le paquet de distribution, on ajouter toutes les cartes de la defausse au paquet de distribution et on mélange le paquet et recommence
     public void distribuerDefausse(Paquet_defausse defausse) {
-        defausse.ajouterCarte(retirerPremiereCarte(),true);
+        if (paquet.isEmpty()) {
+            for (int i = 0; i < defausse.nombreDeCartes(); i++) {
+                ajouterCarte(defausse.retirerPremiereCarte(), false);
+            }
+            melanger();
+        }
+        defausse.ajouterCarte(retirerPremiereCarte(), true);
     }
 }

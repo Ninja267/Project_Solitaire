@@ -13,4 +13,5 @@ public class Paquet_pioche extends Paquet_mere {
             ajouterCarte(distributeur.retirerPremiereCarte(), false);
         }
     }
+
 }

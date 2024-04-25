@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.ArrayListList;
 
 // Class to represent the game state and the CLI interface
 public class App_CLI {
@@ -6,7 +6,7 @@ public class App_CLI {
     private Paquet_distributeur paquetDistributeur;
     private Paquet_pioche pioche;
     private Paquet_defausse defausse;
-    private List<Paquet_colonne> colonnes;
+    private ArrayList<Paquet_colonne> colonnes;
     private List<Paquet_pieux> foundations;
 
     // Constructor to initialize the game with the existing classes
@@ -23,7 +23,7 @@ public class App_CLI {
     public void displayGameState() {
         // Display Pioche and Defausse
         System.out.print("Pioche: ");
-        displayCards(pioche.getCards());
+        displayCards(pioche);
         System.out.print(" | Defausse: ");
         displayCards(defausse.getCards());
         System.out.println();
@@ -44,10 +44,10 @@ public class App_CLI {
     }
 
     // Utility method to display a list of cards
-    private void displayCards(List<Carte> cards) {
+    private void displayCards(ArrayList<Carte> cards) {
         for (Carte card : cards) {
-            if (card.isFaceUp()) {
-                System.out.print(card.getName() + " "); // Assuming Carte has a getName() method
+            if (card.getEnFace()) {
+                System.out.print(card); // Assuming Carte has a getName() method
             } else {
                 System.out.print("[Hidden] ");
             }
