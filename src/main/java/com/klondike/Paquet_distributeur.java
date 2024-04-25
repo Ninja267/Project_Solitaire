@@ -8,6 +8,8 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Paquet_distributeur extends Paquet_mere {
+
+    //Le paquet de distribution est un paquet de 52 cartes, on ajoute 13 cartes de chaque couleur et mélange le paquet
     public Paquet_distributeur() {
         super();
         for (int i = 1; i <= 13; i++) {
@@ -19,6 +21,7 @@ public class Paquet_distributeur extends Paquet_mere {
         melanger();
     }
 
+    // Méthode pour mélanger le paquet, on utilise la méthode de mélange de Fisher-Yates, on génère un index aléatoire j tel que 0 <= j <= i, puis on ajoute la carte à l'index j dans un paquet temporaire et on retire la carte du paquet, à la fin, on remplace le paquet par le paquet temporaire
     public void melanger() {
         Random random = new Random();
         ArrayList<Carte> temp = new ArrayList<Carte>();
@@ -31,9 +34,8 @@ public class Paquet_distributeur extends Paquet_mere {
         paquet = temp;
     }
 
-    /* public void distribuer(int nombreDeCartes) {
-        for (int i = 0; i < nombreDeCartes; i++) {
-            retirerCarte();
-        }
-    } */
+    // Méthode pour retirer et renvoyer la carte au sommet du paquet de distribution au paquet defausse
+    public void distribuerDefausse(Paquet_defausse defausse) {
+        defausse.ajouterCarte(retirerPremiereCarte(),true);
+    }
 }

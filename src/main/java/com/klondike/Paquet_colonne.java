@@ -1,26 +1,21 @@
 package com.klondike;
 import java.util.ArrayList;
-import java.util.List;
-//class Paquet_colonne est classe fille de Paquet_debut, il représent une colonne de cartes dans le jeu de solitaire
-
-//Méthode pour ajouter une carte au sommet de la colonne en respectant l'ordre des cartes (As, 2, 3, 4, 5, 6, 7, 8, 9, 10, Valet, Dame, Roi, As) et de couleur alternée
 
 public class Paquet_colonne extends Paquet_mere {
-    // Méthode pour initier une colonne avec un nombre de cartes
-    // La carte pour ajouter est random et qui est retirée du paquet distributeur
 
+    //Les paquets colonnes initalement dépend au nombre de cartes qu'on veut ajouter, la carte au sommet de la colonne doit être en face, les autres cartes doivent être en dos 
     public Paquet_colonne(Paquet_distributeur distributeur, int nombreDeCartes) {
         super();
         if (nombreDeCartes < 1 || nombreDeCartes > 13) {
             throw new IllegalArgumentException("Le nombre de cartes doit être entre 1 et 13.");
         } else {
             if (nombreDeCartes == 1) {
-                ajouterCarte(distributeur.retirerPremiereCarte(), true);
+                super.ajouterCarte(distributeur.retirerPremiereCarte(), true);
             } else {
                 for (int i = 0; i < nombreDeCartes - 1; i++) {
-                    ajouterCarte(distributeur.retirerPremiereCarte(), false);
+                    super.ajouterCarte(distributeur.retirerPremiereCarte(), false);
                 }
-                ajouterCarte(distributeur.retirerPremiereCarte(), true);
+                super.ajouterCarte(distributeur.retirerPremiereCarte(), true);
             }
         }
     }
@@ -30,12 +25,12 @@ public class Paquet_colonne extends Paquet_mere {
     public void ajouterCarte(Carte carte, boolean enFace) {
         if (paquet.isEmpty()) {
             if (carte.getValeur() == 13) {
-                ajouterCarte(carte, true);
+                super.ajouterCarte(carte, true);
             }
         } else {
             Carte carteSommet = paquet.get(paquet.size() - 1);
             if (carte.precedeGeneral(carteSommet)) {
-                ajouterCarte(carte, true);
+                super.ajouterCarte(carte, true);
             } else {
                 throw new IllegalArgumentException("La carte ne peut pas être ajoutée à la colonne.");
             }
@@ -53,7 +48,7 @@ public class Paquet_colonne extends Paquet_mere {
             for (int i = 0; i < paquet.size(); i++) {
                 if (paquet.get(i).compareMemeCouleur(carte) == 0 && paquet.get(i).getEnFace()) {
                     for (int j = i + 1; j < paquet.size(); j++) {
-                        temp.add(paquet.remove(j));
+                        temp.add(super.retirerPremiereCarte());
                     }
                     trouve = true;
                     break;

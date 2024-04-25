@@ -24,10 +24,6 @@ public class Paquet_mere {
         return paquet.remove(paquet.size() - 1);
     }
 
-    public Carte retirerCarte(Carte carte) {
-        return paquet.remove(paquet.indexOf(carte));
-    }
-
     public Carte premiereCarte() {
         return paquet.get(paquet.size() - 1);
     }

@@ -6,15 +6,18 @@ package com.klondike;
 //Redéfinir ajout de carte pour ajouter des carte dans l'ordre croissant (As, 2, 3, 4, 5, 6, 7, 8, 9, 10, Valet, Dame, Roi, As) et de même couleur
 
 public class Paquet_pieux extends Paquet_mere {
+
+    //Les pieux de fondation sont initialiement vide
     public Paquet_pieux() {
         super();
     }
-    //Méthode ajout de carte avec l'utilisation du méthode precedeMemeCouleur
-    //Commence d'ajouter par l'As, et continue par ordre croissant
-    public void ajouterCarte(Carte carte) {
+
+    //Méthode ajout de carte avec l'utilisation du méthode precedeMemeCouleur, commence d'ajouter par l'As, et continue par ordre croissant
+    @Override
+    public void ajouterCarte(Carte carte, boolean enFace) {
         if (paquet.isEmpty()) {
-            if (carte.getValeur() == 14) {
-                paquet.add(carte);
+            if (carte.getValeur() == 1) {
+                super.ajouterCarte(carte, true);
             }
         } else {
             Carte derniereCarte = paquet.get(paquet.size() - 1);
@@ -23,23 +26,6 @@ public class Paquet_pieux extends Paquet_mere {
             } else {
                 throw new IllegalArgumentException("La carte ne peut pas être ajoutée au pieu");
             }
-        }
-    }
-
-    //Méthode pour retourner la carte au sommet du pieu sans la retirer
-    public Carte getSommet() {
-        return paquet.get(paquet.size() - 1);
-    }
-
-    //Méthode pour retirer la carte au sommet du pieu
-    public Carte retirerCarte() {
-        return paquet.remove(paquet.size() - 1);
-    }
-
-    //Méthode pour recycler les cartes piochées et non retirées se trouvant dans la défausse
-    public void recycler(Paquet_defausse defausse) {
-        while (!defausse.paquet.isEmpty()) {
-            ajouterCarte(defausse.retirerCarte());
         }
     }
 }

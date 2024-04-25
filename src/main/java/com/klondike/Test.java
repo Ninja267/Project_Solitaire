@@ -46,7 +46,7 @@ public class Test {
             //display all the cards in the column
             System.out.println("Column " + (i + 1) + ": ");
             for (int j = 0; j < i + 1; j++) {
-                System.out.println(paquet_colonnes.get(i).retirerCarte());
+                System.out.println(paquet_colonnes.get(i).retirerPremiereCarte());
             }
         }
     }
