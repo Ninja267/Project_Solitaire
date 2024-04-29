@@ -21,8 +21,8 @@ public class Paquet_pieux extends Paquet_mere {
             }
         } else {
             Carte derniereCarte = paquet.get(paquet.size() - 1);
-            if (carte.precedeMemeCouleur(derniereCarte)) {
-                paquet.add(carte);
+            if (derniereCarte.precedeMemeCouleur(carte)) {
+                super.ajouterCarte(carte, true);
             } else {
                 throw new IllegalArgumentException("La carte ne peut pas être ajoutée au pieu");
             }

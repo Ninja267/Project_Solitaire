@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "App_CLI_Play",
+      "request": "launch",
+      "mainClass": "com.klondike.App_CLI_Play",
+      "projectName": "solitaire"
+    },
+    {
+      "type": "java",
       "name": "Test",
       "request": "launch",
       "mainClass": "com.klondike.Test",

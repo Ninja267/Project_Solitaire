@@ -123,22 +123,26 @@ public class App implements ClickReporter {
         interfaceKlondike.setMessage("button pressed: " + identifier);
     }
 
-    public void move(int from, int to) {
-        if (isValidMove(from, to)) {
-            moveCard(from, to);
-        } else {
-            throw new IllegalArgumentException("Invalid move");
-        }
-    }
-
-    private boolean isValidMove(int from, int to) {
-        // Implement the logic to check if a move is valid according to Klondike rules
-        // This might involve checking the cards involved and their positions
-        return true; // Placeholder: You should replace this with actual logic
-    }
-
-    private void moveCard(int from, int to) {
-        // Implement the logic to move a card from one pile to another
-        // This might involve updating your model and then updating the view accordingly
-    }
+    /*
+     * public void move(int from, int to) {
+     * if (isValidMove(from, to)) {
+     * moveCard(from, to);
+     * } else {
+     * throw new IllegalArgumentException("Invalid move");
+     * }
+     * }
+     * 
+     * private boolean isValidMove(int from, int to) {
+     * // Implement the logic to check if a move is valid according to Klondike
+     * rules
+     * // This might involve checking the cards involved and their positions
+     * return true; // Placeholder: You should replace this with actual logic
+     * }
+     * 
+     * private void moveCard(int from, int to) {
+     * // Implement the logic to move a card from one pile to another
+     * // This might involve updating your model and then updating the view
+     * accordingly
+     * }
+     */
 }

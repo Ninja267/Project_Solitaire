@@ -47,8 +47,8 @@ public class Paquet_colonne extends Paquet_mere {
         } else {
             for (int i = 0; i < paquet.size(); i++) {
                 if (paquet.get(i).compareMemeCouleur(carte) == 0 && paquet.get(i).getEnFace()) {
-                    for (int j = i + 1; j < paquet.size(); j++) {
-                        temp.add(super.retirerPremiereCarte());
+                    for (int j = 0; j < i; j++) {
+                        temp.add(paquet.get(j));
                     }
                     trouve = true;
                     break;

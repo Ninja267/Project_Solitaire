@@ -1,56 +1,88 @@
-import java.util.ArrayListList;
+package com.klondike;
 
-// Class to represent the game state and the CLI interface
+import java.util.ArrayList;
+
+// Class qui represente l'interface du jeu Klondike en ligne de commande
 public class App_CLI {
-    // The components of the game
-    private Paquet_distributeur paquetDistributeur;
+    // Declaration des attributs
     private Paquet_pioche pioche;
     private Paquet_defausse defausse;
     private ArrayList<Paquet_colonne> colonnes;
-    private List<Paquet_pieux> foundations;
+    private ArrayList<Paquet_pieux> foundations;
 
-    // Constructor to initialize the game with the existing classes
-    public App_CLI(Paquet_distributeur distributeur, Paquet_pioche pioche, Paquet_defausse defausse,
-            List<Paquet_colonne> colonnes, List<Paquet_pieux> foundations) {
-        this.paquetDistributeur = distributeur;
+    // Constructeur pour initialiser les attributs
+    public App_CLI(Paquet_pioche pioche, Paquet_defausse defausse,
+            ArrayList<Paquet_colonne> colonnes, ArrayList<Paquet_pieux> foundations) {
         this.pioche = pioche;
         this.defausse = defausse;
         this.colonnes = colonnes;
         this.foundations = foundations;
     }
 
-    // Method to display the current game state
-    public void displayGameState() {
-        // Display Pioche and Defausse
-        System.out.print("Pioche: ");
-        displayCards(pioche);
-        System.out.print(" | Defausse: ");
-        displayCards(defausse.getCards());
-        System.out.println();
-
-        // Display Foundations
-        for (int i = 0; i < foundations.size(); i++) {
-            System.out.print("Foundation " + (i + 1) + ": ");
-            displayCards(foundations.get(i).getCards());
+    // Méthode pour afficher l'état actuel du jeu
+    public void etatDuJeu() {
+        // Afficher les paquets
+        System.out.print("Pioche(P): ");
+        if (pioche.nombreDeCartes() == 0) {
+            System.out.print("[Empty]");
+            System.out.println();
+        } else {
+            afficherCarte(pioche.premiereCarte());
             System.out.println();
         }
 
-        // Display Columns
+        // Afficher la defausse
+        System.out.print("Defausse(D): ");
+        if (defausse.nombreDeCartes() == 0) {
+            System.out.print("[Empty]");
+            System.out.println();
+        } else {
+            afficherCarte(defausse.premiereCarte());
+            System.out.println();
+        }
+
+        // Afficher les fondations
+        for (int i = 0; i < foundations.size(); i++) {
+            System.out.print("Foundation(F" + (i + 1) + "): ");
+            if (foundations.get(i).nombreDeCartes() == 0) {
+                System.out.print("[Empty]");
+            } else {
+                afficherCarte(foundations.get(i).premiereCarte());
+            }
+            System.out.println();
+        }
+
+        // Afficher les colonnes
         for (int i = 0; i < colonnes.size(); i++) {
-            System.out.print("Column " + (i + 1) + ": ");
-            displayCards(colonnes.get(i).getCards());
+            System.out.print("Column(C" + (i + 1) + "): ");
+            afficherCartes(colonnes.get(i).paquet);
             System.out.println();
         }
     }
 
-    // Utility method to display a list of cards
-    private void displayCards(ArrayList<Carte> cards) {
-        for (Carte card : cards) {
-            if (card.getEnFace()) {
-                System.out.print(card); // Assuming Carte has a getName() method
+    // Methode pour afficher une carte
+    private void afficherCarte(Carte carte) {
+        if (carte.getEnFace()) {
+            System.out.print(" [" + carte + "] ");
+        } else {
+            System.out.print(" [Hidden] ");
+        }
+    }
+
+    // Methode pour afficher les cartes
+    private void afficherCartes(ArrayList<Carte> cartes) {
+        for (Carte carte : cartes) {
+            if (carte.getEnFace()) {
+                System.out.print(carte + " | ");
             } else {
                 System.out.print("[Hidden] ");
             }
         }
+    }
+
+    // Methode pour clear le terminal
+    public void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

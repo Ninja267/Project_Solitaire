@@ -1,14 +1,7 @@
 package com.klondike;
+
 //Paquet debut est la classe mère de la hiérarchie des paquets de cartes.
-
-//Comporter un attribut ArrayList de Carte
-//Méthode pour ajouter une carte au sommet du paquet
-//Méthode pour retirer une carte du sommet du paquet
-//Méthode pour renvoyer la carte du sommet du paquet sans la retirer
-//Méthode pour renvoyer le nombre de cartes présentes dans le paquet
-//Méthode toString
-//ArrayList doit être protégé, encapsulé dans la classe Paquet_debut et jamais divulgué à l'extérieur de la classe
-
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Paquet_mere {
@@ -24,12 +17,34 @@ public class Paquet_mere {
         return paquet.remove(paquet.size() - 1);
     }
 
+    /* public Carte retirerCarte(Carte carte) {
+        if (paquet.contains(carte)) {
+            paquet.remove(carte);
+            return carte;
+        } else {
+            throw new IllegalArgumentException("La carte n'est pas dans le paquet.");
+        }
+    } */
+
     public Carte premiereCarte() {
         return paquet.get(paquet.size() - 1);
     }
 
     public int nombreDeCartes() {
         return paquet.size();
+    }
+
+    // Méthode pour mélanger le paquet, on utilise la méthode de mélange de Fisher-Yates, on génère un index aléatoire j tel que 0 <= j <= i, puis on ajoute la carte à l'index j dans un paquet temporaire et on retire la carte du paquet, à la fin, on remplace le paquet par le paquet temporaire
+    public void melanger() {
+        Random random = new Random();
+        ArrayList<Carte> temp = new ArrayList<Carte>();
+        for (int i = paquet.size(); i > 0; i--) {
+            // Generate a random index j such that 0 <= j <= i
+            int j = random.nextInt(paquet.size());
+            temp.add(paquet.get(j));
+            paquet.remove(j);
+        }
+        paquet = temp;
     }
 
     public String toString() {

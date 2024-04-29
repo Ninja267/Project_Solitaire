@@ -30,15 +30,13 @@ public class Test {
     
 
     // Test de la classe Paquet_distributeur
-    /* public static void main(String[] args) {
+   /*  public static void main(String[] args) {
         Paquet_distributeur paquet_distributeur = new Paquet_distributeur();
-        for (int i = 0; i < 52; i++) {
-            System.out.println(paquet_distributeur.retirerCarte());
-        }
+            System.out.println(paquet_distributeur);
     } */
 
     //Test de la classe Paquet_colonne
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         Paquet_distributeur paquet_distributeur = new Paquet_distributeur();
         ArrayList<Paquet_colonne> paquet_colonnes = new ArrayList<Paquet_colonne>();
         for (int i = 0; i < 7; i++) {
@@ -49,5 +47,5 @@ public class Test {
                 System.out.println(paquet_colonnes.get(i).retirerPremiereCarte());
             }
         }
-    }
+    } */
 }
