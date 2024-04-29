@@ -17,15 +17,6 @@ public class Paquet_mere {
         return paquet.remove(paquet.size() - 1);
     }
 
-    /* public Carte retirerCarte(Carte carte) {
-        if (paquet.contains(carte)) {
-            paquet.remove(carte);
-            return carte;
-        } else {
-            throw new IllegalArgumentException("La carte n'est pas dans le paquet.");
-        }
-    } */
-
     public Carte premiereCarte() {
         return paquet.get(paquet.size() - 1);
     }
